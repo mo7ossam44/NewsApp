@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_cloud/Widgets/categories_list_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,16 +29,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              Image.asset(''),
-            ],
-          )
-        ],
-      ),
+      body: CategoriesListView(),
     );
   }
 }
