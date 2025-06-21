@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
           //? -> you must used widget<Sliver> only here
           SliverToBoxAdapter(child: CategoriesListView()),
           const SliverToBoxAdapter(child: SizedBox(height: 30)),
-          const NewsContainerListView(),
+          NewsContainerListView(),
         ],
       ),
     );
