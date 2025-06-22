@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_cloud/Models/article_model.dart';
-import 'package:news_cloud/Widgets/news_tile_container.dart';
+import 'package:news_cloud/Widgets/news_container.dart';
 
-class NewsContainerListView extends StatelessWidget {
-  NewsContainerListView({super.key, required this.articlesNewsContainerList});
+class NewsSliverList extends StatelessWidget {
+  const NewsSliverList({super.key, required this.articlesNewsContainerList});
 
   final List<ArticleModel> articlesNewsContainerList;
 
@@ -13,7 +13,7 @@ class NewsContainerListView extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         childCount: articlesNewsContainerList.length,
         (context, index) =>
-            NewsTileContainer(articleModel: articlesNewsContainerList[index]),
+            NewsContainer(articleModel: articlesNewsContainerList[index]),
       ),
     );
   }

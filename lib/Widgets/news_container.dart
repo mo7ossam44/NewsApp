@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_cloud/Models/article_model.dart';
 import 'package:news_cloud/Screens/single_new.dart';
 
-class NewsTileContainer extends StatelessWidget {
-  const NewsTileContainer({super.key, required this.articleModel});
+class NewsContainer extends StatelessWidget {
+  const NewsContainer({super.key, required this.articleModel});
 
   final ArticleModel articleModel;
 
