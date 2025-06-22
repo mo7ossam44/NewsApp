@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_cloud/Widgets/categories_list_view.dart';
-import 'package:news_cloud/Widgets/news_container_listview.dart';
+import 'package:news_cloud/Widgets/news_list_view_builder.dart';
 import 'package:news_cloud/Widgets/rich_text.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
           //? -> you must used widget<Sliver> only here
           SliverToBoxAdapter(child: CategoriesListView()),
           const SliverToBoxAdapter(child: SizedBox(height: 30)),
-          NewsContainerListView(),
+          NewsListViewBuilder(),
         ],
       ),
     );
