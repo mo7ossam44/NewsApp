@@ -16,6 +16,7 @@ class NewsService {
     for (var article in articles) {
       ArticleModel articleModel = ArticleModel(
         title: article['title'],
+        author: article['author'],
         subtitle: article['description'],
         urlToImage: article['urlToImage'],
       );
