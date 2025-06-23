@@ -16,7 +16,6 @@ class NewsListViewBuilder extends StatefulWidget {
 }
 
 class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
-  List<ArticleModel> articlesNewsContainerList = [];
 
   var myFuture;
 
