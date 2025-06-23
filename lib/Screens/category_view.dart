@@ -10,7 +10,7 @@ class CategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: RichTextWidget()),
+      appBar: AppBar(centerTitle: true, title: RichTextWidget(), iconTheme: IconThemeData(color: Colors.orange),),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [NewsListViewBuilder(category: category,)],
