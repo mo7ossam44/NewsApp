@@ -3,9 +3,9 @@ import 'package:news_cloud/Models/category_model.dart';
 import 'package:news_cloud/Widgets/category_card.dart';
 
 class CategoriesListView extends StatelessWidget {
-  CategoriesListView({super.key});
+  const CategoriesListView({super.key});
 
-  final List<CategoryModel> categoriesList = [
+  final List<CategoryModel> categoriesList = const [
     CategoryModel(name: 'business', image: 'assets/images/business2.jpg'),
     CategoryModel(name: 'entertainment', image: 'assets/images/enter.jpg'),
     CategoryModel(name: 'general', image: 'assets/images/global.jpg'),
