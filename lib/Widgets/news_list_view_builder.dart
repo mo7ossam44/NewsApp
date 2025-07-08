@@ -1,95 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:news_cloud/Models/article_model.dart';
-import 'package:news_cloud/Services/news_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_cloud/Widgets/complete_circle_progress.dart';
 import 'package:news_cloud/Widgets/error_message.dart';
 import 'package:news_cloud/Widgets/news_sliver_list.dart';
-
-
+import 'package:news_cloud/cubits/get_news_cubit/get_news_cubit.dart';
+import 'package:news_cloud/cubits/get_news_cubit/get_news_state.dart';
 
 class NewsListViewBuilder extends StatefulWidget {
-  @override
-  State<NewsListViewBuilder> createState() => _NewsListViewBuilderState();
+  const NewsListViewBuilder({super.key, required this.category});
   final String category;
 
-  const NewsListViewBuilder({super.key, required this.category});
+  @override
+  State<NewsListViewBuilder> createState() => _NewsListViewBuilderState();
 }
 
 class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
-
-  var myFuture;
-
   @override
   void initState() {
     super.initState();
-    myFuture = NewsService().getNews(category: widget.category);
+    BlocProvider.of<GetNewsCubit>(context).fetchNews(cityName: widget.category);
   }
 
-  //! Second Level in STF LisfeCycle
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ArticleModel>>(
-      //! أنا هنا ف السطر بستدعي الميثود يعني بعمل تريجر ليها
-      //! future att : وهنا بردو بحط ودني عشان أعرف التايب بتاع الي قدامه
-      future: myFuture,
-      builder: (context, snapshot) {
-        //! 3 STATS Mangment
-        if (snapshot.hasData) {
-          return NewsSliverList(articlesNewsContainerList: snapshot.data!);
-        } else if (snapshot.hasError) {
-          return ErrorMesssage(message: 'error 404');
-        } else {
+    return BlocBuilder<GetNewsCubit, NewsStates>(
+      builder: (context, state) {
+        if (state is NewsLoading) {
           return CompleteCircleWidget();
+        } else if (state is NewsFaluire) {
+          return ErrorMesssage(message: 'The Error : ${state.errorMessage}');
+        } else {
+          final data = BlocProvider.of<GetNewsCubit>(context).getDataNews();
+          return NewsSliverList(articlesNewsContainerList: data);
         }
       },
     );
   }
 }
 
+// class NewsListViewBuilder extends StatefulWidget {
+//   @override
+//   State<NewsListViewBuilder> createState() => _NewsListViewBuilderState();
 
+//   final String category;
+//   const NewsListViewBuilder({super.key, required this.category});
+// }
 
-  //! First Level in STF LisfeCycle
-  //! init state called only one time
-  //! cannot make init state asynchrons method
-  // ? @override
-  // ? void initState() {
-  // ?  super.initState();
-  // ?  newsServiceMethod();
-  // ? }
+// class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
 
-  //! if you use a future builder widget bacame able to remove setstate (Future builder can handle this part without need any setstate)
-  // ? Future<void> newsServiceMethod() async {
-  // ?  articlesNewsContainerList = await NewsService().getNews();
-  // ?  isLoading = false;
-  // ?  setState(() {});
-  // ? }
+//   var myFuture;
 
+//   @override
+//   void initState() {
+//     super.initState();
+//     myFuture = NewsService().getNews(category: widget.category);
+//   }
 
-  // return isLoading
-    //     ? SliverFillRemaining(
-    //         hasScrollBody: false,
-    //         child: Center(
-    //           child: CircularProgressIndicator(color: Colors.orange),
-    //         ),
-    //       )
-    //     : articlesNewsContainerList.isNotEmpty
-    //     ? NewsSliverList(articlesNewsContainerList: articlesNewsContainerList)
-    //     : SliverFillRemaining(
-    //         hasScrollBody: false,
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Image.asset('assets/images/mark.png', width: 100),
-    //             Center(
-    //               child: Text(
-    //                 'error 404',
-    //                 style: TextStyle(
-    //                   color: Colors.red,
-    //                   fontWeight: FontWeight.bold,
-    //                   fontSize: 20,
-    //                 ),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       );
+//   //? Second Level in STF LisfeCycle
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<List<ArticleModel>>(
+//       //? أنا هنا ف السطر بستدعي الميثود يعني بعمل تريجر ليها
+//       //? future att : وهنا بردو بحط ودني عشان أعرف التايب بتاع الي قدامه
+//       future: myFuture,
+//       builder: (context, snapshot) {
+//         //? 3 STATS Mangment
+//         if (snapshot.hasData) {
+//           return NewsSliverList(articlesNewsContainerList: snapshot.data!);
+//         } else if (snapshot.hasError) {
+//           return ErrorMesssage(message: 'error 404');
+//         } else {
+//           return CompleteCircleWidget();
+//         }
+//       },
+//     );
+//   }
+// }
