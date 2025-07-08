@@ -13,7 +13,7 @@ class CategoryView extends StatelessWidget {
       appBar: AppBar(centerTitle: true, title: RichTextWidget(), iconTheme: IconThemeData(color: Colors.orange),),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
-        slivers: [NewsListViewBuilder(category: category,)],
+        slivers: [NewsListViewBuilder(category:category)],
       ),
     );
   }
